@@ -1,0 +1,32 @@
+[
+  {
+    "productId": "P001",
+    "name": "Wireless Mouse",
+    "price": 25.99,
+    "quantity": 70
+  },
+  {
+    "productId": "P002",
+    "name": "Mechanical Keyboard",
+    "price": 45.5,
+    "quantity": 60
+  },
+  {
+    "productId": "P003",
+    "name": "HD Monitor",
+    "price": 120,
+    "quantity": 30
+  },
+  {
+    "productId": "P004",
+    "name": "USB-C Charger",
+    "price": 18.75,
+    "quantity": 200
+  },
+  {
+    "productId": "P005",
+    "name": "Webcam 1080p",
+    "price": 40,
+    "quantity": 80
+  }
+]
