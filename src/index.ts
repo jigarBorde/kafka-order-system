@@ -6,7 +6,7 @@ import { testKafkaConnection } from './config/kafka.config';
 import { startConsumers } from './constants';
 
 const app: Express = express();
-const port: number = 3000;
+const port: number = Number(process.env.PORT) || 3000;
 
 app.use(cors());
 app.use(helmet());
@@ -31,6 +31,6 @@ testKafkaConnection()
 startConsumers()
 
 // Start server
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT || 3000}`);
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
