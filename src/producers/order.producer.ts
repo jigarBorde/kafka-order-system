@@ -1,11 +1,9 @@
-import { Producer } from "kafkajs";
-import { kafka } from "../config/kafka.config"
 import { KafkaTopics } from "../constants/kafka.constants";
+import { getProducer } from "../lib/kafka.producer";
 
 
-const producer: Producer = kafka.producer();
 export const sendOrderEventProducer = async (event: any) => {
-    await producer.connect();
+    const producer = await getProducer();
     await producer.send({
         topic: KafkaTopics.ORDER_EVENTS,
         messages: [
@@ -15,6 +13,4 @@ export const sendOrderEventProducer = async (event: any) => {
             },
         ],
     });
-    await producer.disconnect();
-    console.log(`Order event sent: ${event.id}`);
 }

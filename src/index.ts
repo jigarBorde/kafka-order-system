@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import apiRoutes from './routes/api.routes';
 import { testKafkaConnection } from './config/kafka.config';
+import { disconnectProducer } from './lib/kafka.producer';
+
 import { startConsumers } from './constants';
 
 const app: Express = express();
@@ -34,3 +36,18 @@ startConsumers()
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+// Gracefully disconnect Kafka producer on shutdown
+async function shutdown() {
+    console.log('Shutting down, disconnecting producer...');
+    try {
+        await disconnectProducer();
+    } catch (err) {
+        console.error('Error during producer disconnect', err);
+    } finally {
+        process.exit(0);
+    }
+}
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);

@@ -1,11 +1,9 @@
-import { Producer } from 'kafkajs';
-import { kafka } from '../config/kafka.config';
 import { KafkaTopics } from '../constants/kafka.constants';
+import { getProducer } from '../lib/kafka.producer';
 
-const producer: Producer = kafka.producer();
 
 export const createNotificationProducer = async (event: any) => {
-    await producer.connect();
+    const producer = await getProducer();
     await producer.send({
         topic: KafkaTopics.NOTIFICATION_EVENTS,
         messages: [
@@ -15,6 +13,4 @@ export const createNotificationProducer = async (event: any) => {
             },
         ],
     });
-    await producer.disconnect();
-    console.log(`Notification event produced for order: ${event.id}`);
 };
